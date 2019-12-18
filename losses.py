@@ -21,18 +21,17 @@ def focal_loss(y_true, y_pred,anchor_state):
         alpha_factor = tf.where(tf.equal(labels, 1), alpha_factor, 1 - alpha_factor)
         # focal_weight 用来使置信度较高容易的样本的 loss 比原来小, 而置信度低的难度大的 loss 变化不大
         # (1 - 0.99) ** 2 = 1e-4, (1 - 0.9) ** 2 = 1e-2
-        focal_weight = tf.where(tf.equal(labels, 1), 1 - y_pred, y_pred)
+        focal_weight = tf.where(tf.equal(labels, 1), 1 - tf.sigmoid(y_pred), tf.sigmoid(y_pred))
         focal_weight = alpha_factor * focal_weight ** gamma
         # binary_crossentropy 是  -log(p) y=1 -log(1-p) y=others, 那么论文中统一的用 -log(pt) 来表示
-        #cls_loss = focal_weight * tf.nn.sigmoid_cross_entropy_with_logits(labels=labels,logits=y_pred)
-        cls_loss = focal_weight * tf.keras.backend.binary_crossentropy(target=labels,output=y_pred)
+        cls_loss = focal_weight * tf.nn.sigmoid_cross_entropy_with_logits(labels=labels,logits=y_pred)
+#         cls_loss = focal_weight * tf.keras.backend.binary_crossentropy(target=labels,output=y_pred)
         # compute the normalizer: the number of positive anchors
         normalizer = tf.where(tf.equal(location_state, 1))
         normalizer = tf.cast(tf.shape(normalizer)[0], tf.float32)
         normalizer = tf.maximum(1.0, normalizer)
         loss = tf.reduce_sum(cls_loss) / normalizer
     return loss
-
 
 def iou_loss(y_true, y_pred,location_state,centerness):
     with tf.variable_scope("loss/iou") as scope:
@@ -42,10 +41,10 @@ def iou_loss(y_true, y_pred,location_state,centerness):
         if tf.size(indices) == 0:
             return tf.constant(0.0)
         y_regr_pred = tf.gather_nd(y_pred, indices)
-    #     print(y_regr_pred.shape)
+        print(y_regr_pred.shape)
         y_regr_true = tf.gather_nd(y_true, indices)
         y_centerness_true = tf.gather_nd(centerness,indices)
-
+        print(y_centerness_true.shape)
         # (num_pos, )
         pred_top = y_regr_pred[:, 0]
         pred_bottom = y_regr_pred[:, 1]
@@ -72,7 +71,7 @@ def iou_loss(y_true, y_pred,location_state,centerness):
         ious = (area_intersect*(800*1024) + 1.0) / (area_union*(800*1024) + 1.0)
         losses = -tf.log(ious)
 
-        losses =  tf.reduce_mean(losses)
+        losses =  tf.reduce_sum(losses)/tf.reduce_sum(location_state)
     return losses
 
 def centerness_loss(y_true, y_pred,location_state):
@@ -86,6 +85,6 @@ def centerness_loss(y_true, y_pred,location_state):
         y_centerness_pred = tf.gather_nd(y_pred, indices)
         y_true = tf.gather_nd(y_true, indices)
         y_centerness_true = y_true
-        loss = tf.cond((tf.size(y_centerness_true) > 0),lambda:tf.keras.backend.binary_crossentropy(output=y_centerness_pred,target=y_centerness_true), lambda:tf.zeros_like(y_centerness_pred))
+        loss = tf.cond((tf.size(y_centerness_true) > 0),lambda:tf.keras.backend.binary_crossentropy(output=y_centerness_pred,target=y_centerness_true, from_logits=True), lambda:tf.zeros_like(y_centerness_pred))
         loss = tf.reduce_mean(loss)  
     return loss

@@ -1,9 +1,9 @@
 import numpy as np
 from flags_and_variables import *
 ###get ymin ,xmin ,ymax,xmax seperatelty
-def encode_boxes(annotation_batch,cls_batch,feature_size,stride):
-    m_w = np.array([-1,64,128,256,512,np.inf])/FLAGS.image_width
-    m_h = np.array([-1,64,128,256,512,np.inf])/FLAGS.image_height
+
+def encode_boxes(annotation_batch,cls_batch,feature_size,stride,concatenate=True):
+    m = np.array([-1,64,128,256,512,1e8])
     ymin_true = np.expand_dims(annotation_batch[...,0],axis=2)#(b,N,1)
     ymax_true = np.expand_dims(annotation_batch[...,2],axis=2)
     xmin_true = np.expand_dims(annotation_batch[...,1],axis=2)
@@ -16,10 +16,8 @@ def encode_boxes(annotation_batch,cls_batch,feature_size,stride):
     matched_true_classes = []
     matched_true_centerness = []
     for feature_index in range(5):
-        m_w_min =m_w[feature_index]
-        m_w_max =m_w[feature_index+1]
-        m_h_min =m_h[feature_index]
-        m_h_max =m_h[feature_index+1]
+        m_min =m[feature_index]
+        m_max =m[feature_index+1]
         offset = np.math.floor(stride[feature_index]/2)
         y_center_mapping = np.array([(i*stride[feature_index]+offset) for i in range(feature_size[feature_index][0])])/FLAGS.image_height #[w]
         x_center_mapping = np.array([(i*stride[feature_index]+offset) for i in range(feature_size[feature_index][1])])/FLAGS.image_width#[H]
@@ -46,9 +44,10 @@ def encode_boxes(annotation_batch,cls_batch,feature_size,stride):
         r_true = (xmax_true - x_center_mapping)*x_mask_f
         r_true = np.tile(np.expand_dims(np.expand_dims(r_true,2),axis=-1),[1,1,y_mask.shape[2],1,1])#(6, 30, 100, 128, 1)
 
-        tblr = np.concatenate([t_true,b_true,l_true,r_true],axis=-1)#(6, 30, 100, 128, 4)
+        tblr = np.concatenate([t_true,b_true,l_true,r_true],axis=-1)
+        tblr_temp = np.concatenate([t_true*FLAGS.image_height,b_true*FLAGS.image_height,l_true*FLAGS.image_width,r_true*FLAGS.image_width],axis=-1)#(6, 30, 100, 128, 4)
 
-        tblr_mask = np.expand_dims(np.logical_and((np.max(tblr,axis=-1)>m_h_min),(np.max(tblr,axis=-1)<=m_w_max)),axis=-1)#(b,N,W,H,1)
+        tblr_mask = np.expand_dims(np.logical_and((np.max(tblr_temp,axis=-1)>m_min),(np.max(tblr_temp,axis=-1)<=m_max)),axis=-1)#(b,N,W,H,1)
         xy_mask = (np.logical_and(np.expand_dims(y_mask,axis=3),np.expand_dims(x_mask,axis=2))).astype(np.float32)
         xy_mask = np.expand_dims(xy_mask,axis=-1)#(?,?,100,128,1)
 
@@ -89,7 +88,8 @@ def encode_boxes(annotation_batch,cls_batch,feature_size,stride):
         matched_true_boxes.append(np.reshape(pos_true_boxes,(-1,feature_size[feature_index][0]*feature_size[feature_index][1],4)))
         matched_true_classes.append(np.reshape(pos_true_classes,(-1,feature_size[feature_index][0]*feature_size[feature_index][1],FLAGS.num_class)))
         matched_true_centerness.append(np.reshape(centerness,(-1,feature_size[feature_index][0]*feature_size[feature_index][1],1)))
-    matched_true_boxes = np.concatenate(matched_true_boxes,axis=1)
-    matched_true_classes = np.concatenate(matched_true_classes,axis=1)
-    matched_true_centerness = np.concatenate(matched_true_centerness,axis=1)
+    if(concatenate == True):
+        matched_true_boxes = np.concatenate(matched_true_boxes,axis=1)
+        matched_true_classes = np.concatenate(matched_true_classes,axis=1)
+        matched_true_centerness = np.concatenate(matched_true_centerness,axis=1)
     return matched_true_boxes,matched_true_classes,matched_true_centerness
