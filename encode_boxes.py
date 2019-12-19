@@ -93,3 +93,73 @@ def encode_boxes(annotation_batch,cls_batch,feature_size,stride,concatenate=True
         matched_true_classes = np.concatenate(matched_true_classes,axis=1)
         matched_true_centerness = np.concatenate(matched_true_centerness,axis=1)
     return matched_true_boxes,matched_true_classes,matched_true_centerness
+
+def predict_outputs(centerness_pred,classes_pred,localization_pred,feature_size):
+    m_w = np.array([-1,64,128,256,512,np.inf])/FLAGS.image_width
+    m_h = np.array([-1,64,128,256,512,np.inf])/FLAGS.image_height
+    center_list = []
+    m_h_min_list = []
+    m_w_max_list = []
+    for i in range(5):
+        #change top,bottom,left,right to ymin,xmin,ymax,xmax
+    # feature_size=[(100,128),(50,64),(25,32),(13,16),(7,8)]
+    # stride=[8,16,32,64,128]
+        m_w_min =m_w[i]
+        m_w_max =m_w[i+1]
+        m_h_min =m_h[i]
+        m_h_max =m_h[i+1]
+        #ensure the predicted boxes max(top,bottom,left,right) is in the domain(m_h_min,m_w_max)
+            #the mim(top,bottom,left,right) is bigger than 1 pixel
+        offset = np.math.floor(stride[i]/2)
+        y_center_mapping = np.array([(j*stride[i]+offset) for j in range(feature_size[i][0])])/FLAGS.image_height
+        x_center_mapping = np.array([(j*stride[i]+offset) for j in range(feature_size[i][1])])/FLAGS.image_width
+        y_center_mapping = np.expand_dims(np.tile(np.expand_dims(y_center_mapping,axis=-1),[1,feature_size[i][1]]),axis=-1)
+        x_center_mapping = np.expand_dims(np.tile(np.expand_dims(x_center_mapping,axis=0),[feature_size[i][0],1]),axis=-1)
+        center = np.concatenate([y_center_mapping,x_center_mapping],axis=-1).reshape(-1,(feature_size[i][0]*feature_size[i][1]),2)
+        center_list.append(center)
+        m_h_min = np.ones_like(y_center_mapping)*m_h_min
+        m_w_max = np.ones_like(x_center_mapping)*m_w_max
+        m_h_min_list.append(m_h_min.reshape(-1,(feature_size[i][0]*feature_size[i][1])))
+        m_w_max_list.append(m_w_max.reshape(-1,(feature_size[i][0]*feature_size[i][1])))
+    center_list = np.concatenate(center_list,axis=1) #(1, 17064, 2)
+    m_h_min_list = np.concatenate(m_h_min_list,axis=1)#(1, 17064)
+    m_w_max_list = np.concatenate(m_w_max_list,axis=1)#(1, 17064)
+    
+#     localization_mask = tf.expand_dims(tf.logical_and((tf.reduce_min(localization_pred,axis=-1)>m_h_min_list),(tf.reduce_max(localization_pred,axis=-1)<=m_w_max_list)),axis=-1)
+    localization_mask_2 = tf.cast(tf.expand_dims((tf.reduce_min(localization_pred,axis=-1)>0.001),axis=-1),tf.float32)
+#     localization_mask = tf.cast(localization_mask,tf.float32) * localization_mask_2
+    localization_pred = localization_pred * localization_mask_2
+    centerness_pred  = centerness_pred *localization_mask_2
+    classes_pred = classes_pred * localization_mask_2
+    
+    
+    ymin = tf.expand_dims((center_list[...,0]-localization_pred[...,0]) * FLAGS.image_height,axis=-1)
+    ymax = tf.expand_dims((center_list[...,0]+localization_pred[...,1]) * FLAGS.image_height,axis=-1)
+    xmin = tf.expand_dims((center_list[...,1]-localization_pred[...,2]) * FLAGS.image_width,axis=-1)
+    xmax = tf.expand_dims((center_list[...,1]+localization_pred[...,3]) * FLAGS.image_width,axis=-1)
+    localization_pred = tf.concat([ymin,xmin,ymax,xmax],axis=-1)
+    centerness_pred = tf.squeeze(centerness_pred,axis=0)
+    classes_pred = tf.squeeze(classes_pred,axis=0)
+    localization_pred = tf.squeeze(localization_pred,axis=0)
+    
+    score_pred = centerness_pred*classes_pred
+#     score_pred = classes_pred
+    mask = (score_pred > 0.3)
+    
+    _boxes = []
+    _classes = []
+    _scores = []
+    for c in range(FLAGS.num_class):
+    ##nms
+        _localization_pred = tf.boolean_mask(localization_pred,mask[:,c])
+        _scores_pred = tf.boolean_mask(score_pred[:,c],mask[:,c])
+        nms_index = tf.image.non_max_suppression(
+            _localization_pred, _scores_pred, 10, iou_threshold = 0.5)
+        _boxes.append(tf.gather(_localization_pred, nms_index))
+        _scores_pred = tf.gather(_scores_pred,nms_index)
+        _scores.append(_scores_pred)
+        _classes.append(tf.ones_like(_scores_pred, 'int32') * c)
+    _boxes = tf.concat(_boxes,axis=0)
+    _scores = tf.concat(_scores,axis=0)
+    _classes = tf.concat(_classes,axis=0)
+    return _scores,_classes,_boxes
