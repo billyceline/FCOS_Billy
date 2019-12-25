@@ -144,7 +144,7 @@ def predict_outputs(centerness_pred,classes_pred,localization_pred,feature_size)
     
     score_pred = centerness_pred*classes_pred
 #     score_pred = classes_pred
-    mask = (score_pred > 0.3)
+    mask = (score_pred > inference_threshold)
     
     _boxes = []
     _classes = []

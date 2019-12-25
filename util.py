@@ -48,7 +48,7 @@ def get_random_data(annotation_line, input_shape, random=True, max_boxes=20, jit
     #box = np.array([np.array(list(map(int,box.split(',')))) for box in annotation_line])
 #######random crop boxes#############################
     if crop:
-        box ,crop_offset = random_crop_with_constraints(box, (iw,ih), min_scale=0.3, max_scale=1,max_aspect_ratio=2, constraints=None,max_trial=50)
+        box ,crop_offset = random_crop_with_constraints(box, (iw,ih), min_scale=0.5, max_scale=1,max_aspect_ratio=2, constraints=None,max_trial=50)
         image = image.crop([crop_offset[0],crop_offset[1],crop_offset[0]+crop_offset[2],crop_offset[1]+crop_offset[3]])
         iw, ih = image.size
     if not random:

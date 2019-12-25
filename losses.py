@@ -41,10 +41,8 @@ def iou_loss(y_true, y_pred,location_state,centerness):
         if tf.size(indices) == 0:
             return tf.constant(0.0)
         y_regr_pred = tf.gather_nd(y_pred, indices)
-        print(y_regr_pred.shape)
         y_regr_true = tf.gather_nd(y_true, indices)
         y_centerness_true = tf.gather_nd(centerness,indices)
-        print(y_centerness_true.shape)
         # (num_pos, )
         pred_top = y_regr_pred[:, 0]
         pred_bottom = y_regr_pred[:, 1]
