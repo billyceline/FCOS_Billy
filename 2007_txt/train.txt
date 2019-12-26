@@ -1,0 +1,127 @@
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000034.jpg 116,167,360,400,16 141,153,333,229,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000042.jpg 263,32,500,295,16 1,36,235,299,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000198.jpg 160,134,286,239,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000312.jpg 3,2,500,334,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000450.jpg 38,36,325,426,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000612.jpg 158,144,375,500,19 1,110,195,500,19 1,1,374,213,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000635.jpg 154,149,420,342,16 15,209,40,238,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000689.jpg 2,39,498,347,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000774.jpg 85,36,447,225,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000818.jpg 295,121,500,204,16 1,181,33,204,7
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000899.jpg 92,139,473,243,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000966.jpg 42,48,493,312,16 308,149,337,189,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000967.jpg 419,233,468,372,19 148,222,205,375,19 161,241,231,375,19 12,223,39,330,19 23,124,500,333,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/000993.jpg 214,137,366,277,16 396,87,466,183,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/001112.jpg 323,87,406,214,16 61,168,125,202,7 95,165,140,194,7 181,279,261,335,13 259,299,350,335,13
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/001172.jpg 19,20,486,162,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/001323.jpg 33,188,481,322,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/001483.jpg 171,72,388,303,16 74,151,153,250,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/001612.jpg 157,105,466,277,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/001789.jpg 1,84,159,288,16 197,98,323,256,16 363,73,500,260,16 359,206,386,278,19 357,234,477,375,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/001930.jpg 335,113,390,181,16 79,73,217,203,16 220,126,314,327,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002068.jpg 231,113,372,196,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002166.jpg 14,74,481,317,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002180.jpg 98,89,476,375,16 8,206,100,266,7 1,205,47,276,7 495,177,500,194,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002321.jpg 117,197,242,306,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002423.jpg 233,146,410,237,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002496.jpg 61,70,500,348,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002502.jpg 12,114,275,412,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002590.jpg 3,272,374,443,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002757.jpg 75,57,467,370,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002782.jpg 1,34,467,267,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002844.jpg 141,37,500,248,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002906.jpg 149,195,293,380,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/002975.jpg 225,25,500,207,16 231,125,254,192,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003053.jpg 282,178,450,236,16 53,187,126,243,16 458,210,491,237,7
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003135.jpg 2,114,497,276,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003244.jpg 1,142,498,245,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003417.jpg 20,83,433,257,16 132,222,195,280,19 1,257,61,326,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003497.jpg 25,101,357,254,16 404,140,500,171,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003499.jpg 107,26,496,324,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003564.jpg 93,51,339,304,16 1,149,89,239,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003605.jpg 15,80,500,383,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003628.jpg 46,164,68,251,19 13,163,44,258,19 51,1,448,324,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003695.jpg 1,145,480,283,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003752.jpg 404,323,500,351,16 1,276,128,312,16 207,237,306,273,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003818.jpg 170,137,341,210,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003830.jpg 43,20,500,341,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/003866.jpg 11,82,385,234,16 385,133,500,203,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004005.jpg 118,185,360,217,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004256.jpg 2,2,500,300,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004281.jpg 270,1,500,375,16 447,260,500,375,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004315.jpg 135,150,265,357,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004386.jpg 19,79,384,331,7 196,1,240,44,16 259,3,308,36,16 305,8,365,36,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004436.jpg 108,154,243,382,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004579.jpg 1,132,500,247,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004591.jpg 139,158,264,199,16 307,266,500,333,7 326,247,500,307,7
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004627.jpg 193,202,421,272,16 417,227,500,284,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004675.jpg 3,46,374,150,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004691.jpg 54,67,500,318,16 33,1,71,20,7 2,1,40,21,7
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004693.jpg 1,1,143,226,16 104,2,500,261,16 168,141,218,278,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004776.jpg 77,58,428,353,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004849.jpg 143,191,250,281,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004911.jpg 1,120,99,241,16 70,37,396,343,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/004951.jpg 51,142,500,262,16 17,162,82,253,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005032.jpg 23,66,267,404,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005094.jpg 1,135,281,226,16 298,167,448,268,11 293,188,370,270,11
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005168.jpg 36,116,445,229,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005244.jpg 2,10,436,342,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005269.jpg 76,113,402,302,16 372,206,403,287,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005360.jpg 72,97,431,242,16 1,137,71,226,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005389.jpg 25,42,410,208,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005440.jpg 1,176,444,243,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005544.jpg 79,188,288,310,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005654.jpg 1,61,442,324,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005680.jpg 121,65,372,318,16 476,244,500,299,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005735.jpg 1,100,493,287,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005851.jpg 223,155,316,190,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005893.jpg 1,84,479,182,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/005903.jpg 2,87,324,375,16 381,207,402,292,19 313,202,331,258,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006023.jpg 21,46,495,280,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006135.jpg 221,143,266,183,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006166.jpg 125,122,312,340,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006275.jpg 1,1,497,262,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006344.jpg 1,39,401,313,16 394,129,439,239,19 460,152,497,249,19 449,132,490,177,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006400.jpg 433,80,500,256,16 189,101,440,235,16 40,125,199,203,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006466.jpg 1,24,482,358,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006499.jpg 1,89,320,304,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006635.jpg 14,61,342,471,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006652.jpg 172,62,328,244,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006694.jpg 100,52,500,248,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006844.jpg 87,105,492,237,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/006943.jpg 121,82,310,297,16 284,78,500,313,16 64,159,88,231,19 2,135,58,375,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007168.jpg 48,102,372,424,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007222.jpg 346,99,490,230,16 218,98,355,226,16 1,109,125,202,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007361.jpg 72,260,334,280,16 262,312,342,337,4
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007467.jpg 2,124,284,208,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007513.jpg 1,11,461,333,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007586.jpg 1,145,241,248,16 434,222,448,253,19 320,209,329,245,19 290,204,298,234,19 280,203,286,231,19 271,217,281,234,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007696.jpg 1,116,349,223,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007767.jpg 83,89,500,289,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007819.jpg 12,62,500,128,16 32,110,93,131,7
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007926.jpg 1,276,346,337,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/007963.jpg 285,291,304,337,19 263,293,284,335,19 457,230,500,248,7 1,322,80,375,7 1,338,38,375,7 1,200,470,334,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008095.jpg 373,141,500,175,16 5,86,390,202,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008235.jpg 48,127,337,284,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008263.jpg 15,93,366,337,16 367,224,415,262,16 144,178,177,260,19 162,244,217,375,19 209,234,240,369,19 230,232,286,375,19 284,241,346,372,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008316.jpg 148,1,500,332,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008351.jpg 136,163,377,270,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008445.jpg 1,4,490,333,16 150,116,179,175,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008506.jpg 10,142,93,252,16 89,49,457,291,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008691.jpg 1,140,454,213,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008710.jpg 138,50,323,249,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008790.jpg 1,169,213,230,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008878.jpg 173,138,383,196,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/008988.jpg 2,95,375,329,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009086.jpg 31,34,500,281,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009218.jpg 3,60,374,500,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009289.jpg 82,15,427,333,16 419,223,500,333,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009377.jpg 19,97,62,200,19 57,19,417,336,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009389.jpg 119,117,500,364,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009508.jpg 175,318,228,385,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009537.jpg 129,161,150,201,19 8,10,500,221,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009637.jpg 282,100,500,167,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009718.jpg 2,194,297,252,16 362,315,408,344,7 162,337,240,372,7 489,331,500,354,7 95,349,108,371,19 82,320,98,353,19 458,349,473,375,19 426,351,440,375,19 211,351,221,375,19 201,354,211,375,19 185,359,199,375,19 171,361,186,375,19 160,355,169,375,19 107,362,119,375,19 117,364,130,375,19 135,358,145,375,19 135,353,146,367,19 132,335,144,363,19 472,295,480,323,19 465,298,475,316,19
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009790.jpg 11,40,479,213,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009855.jpg 107,32,500,280,16
+/media/xinje/New Volume/VOC07&12/VOC2007/train/JPEGImages/009860.jpg 65,25,490,355,16

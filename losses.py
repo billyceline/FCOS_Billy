@@ -10,7 +10,7 @@ def focal_loss(y_true, y_pred,anchor_state):
     Returns
         The focal loss of y_pred w.r.t. y_true.
     """
-    with tf.variable_scope("loss/focal") as scope:
+    with tf.compat.v1.variable_scope("loss/focal") as scope:
         alpha=0.25
         gamma=2.0
         # compute the focal loss
@@ -34,7 +34,7 @@ def focal_loss(y_true, y_pred,anchor_state):
     return loss
 
 def iou_loss(y_true, y_pred,location_state,centerness):
-    with tf.variable_scope("loss/iou") as scope:
+    with tf.compat.v1.variable_scope("loss/iou") as scope:
         # pos location
         indices = tf.where(tf.equal(location_state, 1))
     #     print(indices.shape)
@@ -67,13 +67,13 @@ def iou_loss(y_true, y_pred,location_state,centerness):
         area_intersect = w_intersect * h_intersect
         area_union = target_area + pred_area - area_intersect
         ious = (area_intersect*(800*1024) + 1.0) / (area_union*(800*1024) + 1.0)
-        losses = -tf.log(ious)
+        losses = -tf.math.log(ious)
 
         losses =  tf.reduce_sum(losses)/tf.reduce_sum(location_state)
     return losses
 
 def centerness_loss(y_true, y_pred,location_state):
-    with tf.variable_scope("loss/bce") as scope:
+    with tf.compat.v1.variable_scope("loss/bce") as scope:
     #         y_true = tf.squeeze(y_true,axis=-1)
     #         y_pred = tf.squeeze(y_pred,axis=-1)
         #  pos location

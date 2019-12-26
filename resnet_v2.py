@@ -124,7 +124,7 @@ def resnet_v2(inputs,
               output_stride=None,
               include_root_block=True,
               reuse=None,
-              scope=None,is_trainable=True):
+              scope=None):
   """Generator for v2 (preactivation) ResNet models.
   This function generates a family of ResNet v2 models. See the resnet_v2_*()
   methods for specific model instantiations, obtained by selecting different
@@ -192,7 +192,7 @@ def resnet_v2(inputs,
           # conv1 because the first ResNet unit will perform these. Cf.
           # Appendix of [2].
           with arg_scope(
-              [layers_lib.conv2d], activation_fn=None, normalizer_fn=None,weights_initializer=he_normal(seed=0.01),trainable=is_trainable):
+              [layers_lib.conv2d], activation_fn=None, normalizer_fn=None,weights_initializer=he_normal(seed=0.01)):
             net = resnet_utils.conv2d_same(net, 64, 7, stride=2, scope='conv1')
           net = layers.max_pool2d(net, [3, 3], stride=2, scope='pool1')
         net = resnet_utils.stack_blocks_dense(net, blocks, output_stride)
@@ -247,7 +247,6 @@ def resnet_v2_50(inputs,
                  global_pool=True,
                  output_stride=None,
                  reuse=None,
-		 is_trainable=True,
                  scope='resnet_v2_50'):
   """ResNet-50 model of [1]. See resnet_v2() for arg and return description."""
   blocks = [
@@ -264,7 +263,6 @@ def resnet_v2_50(inputs,
       global_pool,
       output_stride,
       include_root_block=True,
-      is_trainable=is_trainable,
       reuse=reuse,
       scope=scope)
 
