@@ -115,6 +115,61 @@ def bottleneck(inputs,
 
     return utils.collect_named_outputs(outputs_collections, sc.name, output)
 
+def bottleneck_lite(inputs,
+               depth,
+               depth_bottleneck,
+               stride,
+               rate=1,
+               outputs_collections=None,
+               scope=None):
+  """Bottleneck residual unit variant with BN before convolutions.
+  This is the full preactivation residual unit variant proposed in [2]. See
+  Fig. 1(b) of [2] for its definition. Note that we use here the bottleneck
+  variant which has an extra bottleneck layer.
+  When putting together two consecutive ResNet blocks that use this unit, one
+  should use stride = 2 in the last unit of the first block.
+  Args:
+    inputs: A tensor of size [batch, height, width, channels].
+    depth: The depth of the ResNet unit output.
+    depth_bottleneck: The depth of the bottleneck layers.
+    stride: The ResNet unit's stride. Determines the amount of downsampling of
+      the units output compared to its input.
+    rate: An integer, rate for atrous convolution.
+    outputs_collections: Collection to add the ResNet unit output.
+    scope: Optional variable_scope.
+  Returns:
+    The ResNet unit's output.
+  """
+  with variable_scope.variable_scope(scope, 'bottleneck_v2', [inputs]) as sc:
+    depth_in = utils.last_dimension(inputs.get_shape(), min_rank=4)
+    preact = layers.batch_norm(
+        inputs, activation_fn=nn_ops.relu, scope='preact')
+    if depth == depth_in:
+      shortcut = resnet_utils.subsample(inputs, stride, 'shortcut')
+    else:
+      shortcut = layers_lib.conv2d(
+          preact,
+          depth, [1, 1],
+          stride=stride,
+          normalizer_fn=None,
+          activation_fn=None,
+          scope='shortcut')
+
+    residual = layers_lib.conv2d(
+        preact, depth_bottleneck, [3, 3], stride=stride, scope='conv1')
+    #residual = resnet_utils.conv2d_same(
+        #residual, depth_bottleneck, 3, stride, rate=rate, scope='conv2')
+    residual = layers_lib.conv2d(
+        residual,
+        depth, [3, 3],
+        stride=1,
+        normalizer_fn=None,
+        activation_fn=None,
+        scope='conv2')
+
+    output = shortcut + residual
+
+    return utils.collect_named_outputs(outputs_collections, sc.name, output)
 
 def resnet_v2(inputs,
               blocks,
@@ -240,6 +295,53 @@ def resnet_v2_block(scope, base_depth, num_units, stride):
       'stride': stride
   }])
 
+
+def resnet_v2_block_lite(scope, base_depth, num_units, stride):
+  """Helper function for creating a resnet_v2 bottleneck block.
+  Args:
+    scope: The scope of the block.
+    base_depth: The depth of the bottleneck layer for each unit.
+    num_units: The number of units in the block.
+    stride: The stride of the block, implemented as a stride in the last unit.
+      All other units have stride=1.
+  Returns:
+    A resnet_v2 bottleneck block.
+  """
+  return resnet_utils.Block(scope, bottleneck, [{
+      'depth': base_depth,
+      'depth_bottleneck': base_depth,
+      'stride': 1
+  }]+ [{
+      'depth': base_depth * 4,
+      'depth_bottleneck': base_depth,
+      'stride': stride
+  }])
+
+
+def resnet_v2_18(inputs,
+                 num_classes=None,
+                 is_training=True,
+                 global_pool=True,
+                 output_stride=None,
+                 reuse=None,
+                 scope='resnet_v2_18'):
+  """ResNet-18 model of [1]. See resnet_v2() for arg and return description."""
+  blocks = [
+      resnet_v2_block_lite('block1', base_depth=64, num_units=2, stride=2),
+      resnet_v2_block_lite('block2', base_depth=128, num_units=2, stride=2),
+      resnet_v2_block_lite('block3', base_depth=256, num_units=2, stride=2),
+      resnet_v2_block_lite('block4', base_depth=512, num_units=2, stride=1),
+  ]
+  return resnet_v2(
+      inputs,
+      blocks,
+      num_classes,
+      is_training,
+      global_pool,
+      output_stride,
+      include_root_block=True,
+      reuse=reuse,
+      scope=scope)
 
 def resnet_v2_50(inputs,
                  num_classes=None,

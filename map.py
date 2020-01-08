@@ -111,4 +111,4 @@ def voc_eval(gt_dict, val_preds, classidx, iou_thres=0.5, use_07_metric=False):
     # ground truth
     prec = tp / np.maximum(tp + fp, np.finfo(np.float64).eps)
     ap = voc_ap(rec, prec, use_07_metric)
-    return ap,rec,prec
+    return ap,tp[-1] / float(npos), tp[-1] / float(nd),

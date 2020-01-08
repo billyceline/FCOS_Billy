@@ -5,17 +5,17 @@ tf.app.flags.DEFINE_integer('image_width', 1024, "image width.")
 tf.app.flags.DEFINE_integer('batch_size',6, "Batch size for training.")
 
 tf.app.flags.DEFINE_float('weight_decay', 1e-5, "Weight decay for l2 regularization.")
-tf.app.flags.DEFINE_float('learning_rate', 1e-4, "Learning rate for gradient decent.")
+tf.app.flags.DEFINE_float('learning_rate', 5e-6, "Learning rate for gradient decent.")
 tf.app.flags.DEFINE_string('log_Dir','./log','tensorboard directory')
-tf.app.flags.DEFINE_string('checkpoint_dir','/media/xinje/New Volume/fcos/resnet_v2_50_freeze_bn/','The directory where to save the parameters of the network')
+tf.app.flags.DEFINE_string('checkpoint_dir','/media/xinje/New Volume/fcos/resnet_v2_50_freezed_backbone/','The directory where to save the parameters of the network')
 
 tf.app.flags.DEFINE_string('dataset_name','voc','voc or coco')
-tf.app.flags.DEFINE_string('backbone','resnet_v2_50','resnet_v2_50 or vgg16')
+tf.app.flags.DEFINE_string('backbone','resnet_v2_50','resnet_v2_18,resnet_v2_50 or vgg_16')
 tf.app.flags.DEFINE_boolean('use_PANET',False,'Use the architecture like PANet')
 
 tf.app.flags.DEFINE_string('train_2012_dir','/media/xinje/New Volume/VOC07&12/VOC2012/train_2012.txt','The voc2012 train.txt file location')
 tf.app.flags.DEFINE_string('train_2007_dir','/media/xinje/New Volume/VOC07&12/VOC2007/train/train_2007.txt','The voc2007 train.txt file location')
-tf.app.flags.DEFINE_string('test_2012_dir','/media/xinje/New Volume/VOC07&12/VOC2012/val_2012.txt','The voc2012test.txt file location')
+tf.app.flags.DEFINE_string('val_2012_dir','/media/xinje/New Volume/VOC07&12/VOC2012/val_2012.txt','The voc2012test.txt file location')
 tf.app.flags.DEFINE_string('test_2007_dir','/media/xinje/New Volume/VOC07&12/VOC2007/test/test_2007.txt','The voc2007 test.txt file location')
 
 FLAGS = tf.app.flags.FLAGS

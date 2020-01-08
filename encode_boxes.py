@@ -180,7 +180,7 @@ def encode_boxes_PANET(annotation_batch,cls_batch,feature_size,stride,concatenat
 
 
 
-def predict_outputs(centerness_pred,classes_pred,localization_pred,feature_size,stride):
+def predict_outputs(centerness_pred,classes_pred,localization_pred,feature_size,stride,inference_threshold=0.2):
     m = np.array([-1,64,128,256,512,np.inf])
     center_list = []
     m_min_list = []
@@ -248,7 +248,7 @@ def predict_outputs(centerness_pred,classes_pred,localization_pred,feature_size,
     _classes = tf.concat(_classes,axis=0)
     return _scores,_classes,_boxes
 
-def predict_outputs_PANET(centerness_pred,classes_pred,localization_pred,feature_size,stride):
+def predict_outputs_PANET(centerness_pred,classes_pred,localization_pred,feature_size,stride,inference_threshold=0.2):
     center_list = []
     #change top,bottom,left,right to ymin,xmin,ymax,xmax
 # feature_size=[(100,128),(50,64),(25,32),(13,16),(7,8)]
@@ -299,3 +299,75 @@ def predict_outputs_PANET(centerness_pred,classes_pred,localization_pred,feature
     _scores = tf.concat(_scores,axis=0)
     _classes = tf.concat(_classes,axis=0)
     return _scores,_classes,_boxes
+
+
+def find_best_threshold(centerness_pred,classes_pred,localization_pred,feature_size,stride):
+    m = np.array([-1,64,128,256,512,np.inf])
+    center_list = []
+    m_min_list = []
+    m_max_list = []
+    for i in range(5):
+        #change top,bottom,left,right to ymin,xmin,ymax,xmax
+    # feature_size=[(100,128),(50,64),(25,32),(13,16),(7,8)]
+    # stride=[8,16,32,64,128]
+        m_min =m[i]
+        m_max =m[i+1]
+        #ensure the predicted boxes max(top,bottom,left,right) is in the domain(m_h_min,m_w_max)
+            #the mim(top,bottom,left,right) is bigger than 1 pixel
+        offset = np.math.floor(stride[i]/2)
+        y_center_mapping = np.array([(j*stride[i]+offset) for j in range(feature_size[i][0])])
+        x_center_mapping = np.array([(j*stride[i]+offset) for j in range(feature_size[i][1])])
+        y_center_mapping = np.expand_dims(np.tile(np.expand_dims(y_center_mapping,axis=-1),[1,feature_size[i][1]]),axis=-1)
+        x_center_mapping = np.expand_dims(np.tile(np.expand_dims(x_center_mapping,axis=0),[feature_size[i][0],1]),axis=-1)
+        center = np.concatenate([y_center_mapping,x_center_mapping],axis=-1).reshape(-1,(feature_size[i][0]*feature_size[i][1]),2)
+        center_list.append(center)
+        m_min = np.ones_like(y_center_mapping)*m_min
+        m_max = np.ones_like(x_center_mapping)*m_max
+        m_min_list.append(m_min.reshape(-1,(feature_size[i][0]*feature_size[i][1])))
+        m_max_list.append(m_max.reshape(-1,(feature_size[i][0]*feature_size[i][1])))
+    center_list = np.concatenate(center_list,axis=1) #(1, 17064, 2)
+    m_min_list = np.concatenate(m_min_list,axis=1)#(1, 17064)
+    m_max_list = np.concatenate(m_max_list,axis=1)#(1, 17064)
+
+    localization_pred = localization_pred*np.array([FLAGS.image_height,FLAGS.image_height,FLAGS.image_width,FLAGS.image_width])
+    localization_mask = tf.expand_dims(tf.logical_and((tf.reduce_max(localization_pred,axis=-1)>m_min_list),(tf.reduce_max(localization_pred,axis=-1)<m_max_list)),axis=-1)
+    localization_mask_2 = tf.cast(tf.expand_dims((tf.reduce_min(localization_pred,axis=-1)>1),axis=-1),tf.float32)
+    localization_mask = tf.cast(localization_mask,tf.float32) * localization_mask_2
+    localization_pred = localization_pred * localization_mask
+    centerness_pred  = centerness_pred *localization_mask
+    classes_pred = classes_pred * localization_mask
+    
+    
+    ymin = tf.expand_dims((center_list[...,0]-localization_pred[...,0]),axis=-1)
+    ymax = tf.expand_dims((center_list[...,0]+localization_pred[...,1]),axis=-1)
+    xmin = tf.expand_dims((center_list[...,1]-localization_pred[...,2]),axis=-1)
+    xmax = tf.expand_dims((center_list[...,1]+localization_pred[...,3]),axis=-1)
+    localization_pred = tf.concat([ymin,xmin,ymax,xmax],axis=-1)
+    centerness_pred = tf.squeeze(centerness_pred,axis=0)
+    classes_pred = tf.squeeze(classes_pred,axis=0)
+    localization_pred = tf.squeeze(localization_pred,axis=0)
+    
+    score_pred = centerness_pred*classes_pred
+#     score_pred = classes_pred
+    result_list = []
+    for thresh in range(0,40,2):
+        mask = (score_pred > (thresh/100))
+
+        _boxes = []
+        _classes = []
+        _scores = []
+        for c in range(FLAGS.num_class):
+        ##nms
+            _localization_pred = tf.boolean_mask(localization_pred,mask[:,c])
+            _scores_pred = tf.boolean_mask(score_pred[:,c],mask[:,c])
+            nms_index = tf.image.non_max_suppression(
+                _localization_pred, _scores_pred, 10, iou_threshold = 0.5)
+            _boxes.append(tf.gather(_localization_pred, nms_index))
+            _scores_pred = tf.gather(_scores_pred,nms_index)
+            _scores.append(_scores_pred)
+            _classes.append(tf.ones_like(_scores_pred, 'int32') * c)
+        _boxes = tf.concat(_boxes,axis=0)
+        _scores = tf.concat(_scores,axis=0)
+        _classes = tf.concat(_classes,axis=0)
+        result_list.append([_scores,_classes,_boxes])
+    return result_list
